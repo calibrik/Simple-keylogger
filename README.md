@@ -8,6 +8,7 @@ How to use:
 - Run setup.bat and after it execute.bat on your machine to check if everything works
 - After a while you will receive a mail with KEYLOG_INFO subject and some screenshots and log.txt file in it
 - If it works, copy all files to target machine
+- Set them as an exception for antivirus
 - Run setup.bat
 - To hide execute.bat under a program, create a shortcut to this file and change name and icon to the program you want to represent
 - Copy path to program and paste it in execute.bat
